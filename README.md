@@ -86,3 +86,23 @@ Vừa tạo instance vừa chèn file uer-data
 
  - Sau khi máy ảo được tạo xong, login bằng uer: ubuntu và pass: auyvl  ( :D )
 
+##### c. Điều chỉnh chế độ card bridge cho máy ảo 
+
+ - Đầu tiên, cài đặt các gói phần mềm cần thiết và tạo ra một linux bridge từ câu lệnh
+
+    # apt-get install bridge-utils
+    # brctl addbr br0
+	
+ - Sau đó cấu hình trong file : /etc/network/interfaces như sau:
+ 
+    auto br0
+    iface br0 inet dhcp
+    bridge_ports eth0
+    bridge_stp off
+    bridge_fd 0
+    bridge_maxwait 0
+	
+ - Khởi động lại dịch vụ mạng và kiểm tra lại IP
+ 
+    /etc/init.d/networking restart
+	ip a
